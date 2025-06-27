@@ -1,4 +1,3 @@
-# p3-neymar
 
 cd backend
 npm install

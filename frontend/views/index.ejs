@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservas de Mesa</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Mapa de Reservas</h1>
+  <table>
+    <tr><th>Mesa</th><th>Cliente</th><th>Data/Hora</th><th>Status</th><th>Contato</th><th>Ações</th></tr>
+    <% reservas.forEach(res => { %>
+      <tr>
+        <td><%= res.numeroMesa %></td>
+        <td><%= res.nomeCliente %></td>
+        <td><%= new Date(res.dataHora).toLocaleString() %></td>
+        <td><%= res.status %></td>
+        <td><%= res.contato %></td>
+        <td>
+          <form method="POST" action="/reserva/delete/<%= res._id %>">
+            <button type="submit">Excluir</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+  <h2>Nova Reserva</h2>
+  <form method="POST" action="/reserva">
+    <input type="text" name="nomeCliente" placeholder="Nome do Cliente" required>
+    <input type="number" name="numeroMesa" placeholder="Mesa" required>
+    <input type="datetime-local" name="dataHora" required>
+    <input type="text" name="contato" placeholder="Contato" required>
+    <select name="status">
+      <option value="reservado">Reservado</option>
+      <option value="ocupado">Ocupado</option>
+      <option value="disponível">Disponível</option>
+    </select>
+    <button type="submit">Reservar</button>
+  </form>
+</body>
+</html>
